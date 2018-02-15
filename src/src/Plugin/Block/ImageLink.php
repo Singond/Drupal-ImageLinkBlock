@@ -4,6 +4,7 @@ namespace Drupal\image_link\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 
 
 /**
@@ -24,9 +25,17 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 		$config = $this->getConfiguration();
 		
 		if (!empty($config['image_link_image'])) {
-			$image = $config['image_link_image'];
+			$imageId = $config['image_link_image'][0];
+			$image = File::load($imageId);
+			if ($image === null) {
+				$imageUrl = "File with ID not found: " . $imageId;
+			} else {
+// 				$imageUrl = $image->getFilename();
+				$imageUrl = file_create_url($image->getFileUri());
+// 				$imageUrl = $imageId;
+			}
 		} else {
-			$image = 'no image';
+			$imageUrl = 'No image found';
 		}
 		
 		if (!empty($config['image_link_link'])) {
@@ -36,7 +45,7 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 		}
 		
 		return array(
-			'#image' => $image,
+			'#image' => $imageUrl,
 			'#link' => $link,
 			'#theme' => 'image_link_block',
 		);
@@ -51,11 +60,12 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 		$config = $this->getConfiguration();
 		
 		$form['image'] = array(
-			'#type' => 'textfield',
+			'#type' => 'managed_file',
 			'#title' => $this->t('Image'),
 			'#description' => $this->t('The image to be displayed as the link'),
 			'#default_value' => isset($config['image_link_image'])
-					? $config['image_link_image'] : '',
+					? $config['image_link_image'] : NULL,
+			'#upload_location' => 'public://images/',
 		);
 		
 		$form['link'] = array(
