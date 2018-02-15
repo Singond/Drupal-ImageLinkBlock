@@ -1,0 +1,13 @@
+<?php
+/**
+ * Implements hook_theme().
+ */
+function image_link_theme() {
+	return array(
+		'image_link_block' => array(
+			'variables' => array('image' => NULL, 'link' => NULL),
+			'template' => 'block--image-link',
+		),
+	);
+}
+?>
