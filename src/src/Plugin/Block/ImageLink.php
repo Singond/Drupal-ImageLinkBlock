@@ -29,9 +29,15 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			$image = 'no image';
 		}
 		
+		if (!empty($config['image_link_link'])) {
+			$link = $config['image_link_link'];
+		} else {
+			$link = '';
+		}
+		
 		return array(
 			'#image' => $image,
-			'#link' => "Image link URL",
+			'#link' => $link,
 			'#theme' => 'image_link_block',
 		);
 	}
@@ -48,7 +54,16 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			'#type' => 'textfield',
 			'#title' => $this->t('Image'),
 			'#description' => $this->t('The image to be displayed as the link'),
-			'#default_value' => isset($config['image_link_image']) ? $config['image_link_image'] : '',
+			'#default_value' => isset($config['image_link_image'])
+					? $config['image_link_image'] : '',
+		);
+		
+		$form['link'] = array(
+			'#type' => 'textfield',
+			'#title' => $this->t('Link'),
+			'#description' => $this->t('The URL the image will link to'),
+			'#default_value' => isset($config['image_link_link'])
+					? $config['image_link_link'] : '',
 		);
 		return $form;
 	}
@@ -61,6 +76,7 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 		parent::blockSubmit($form, $form_state);
 		$values = $form_state->getValues();
 		$this->configuration['image_link_image'] = $values['image'];
+		$this->configuration['image_link_link'] = $values['link'];
 	}
 }
 ?>
