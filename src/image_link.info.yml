@@ -1,0 +1,6 @@
+name: Image Link Block
+description: Adds a block containing a single image as a link
+package: Custom
+
+type: module
+core: 8.x
