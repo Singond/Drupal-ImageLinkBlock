@@ -64,7 +64,7 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			'#title' => $this->t('Image'),
 			'#description' => $this->t('The image to be displayed as the link'),
 			'#default_value' => isset($config['image_link_image'])
-					? $config['image_link_image'] : NULL,
+					? $config['image_link_image'] : null,
 			'#upload_location' => 'public://images/',
 		);
 		
