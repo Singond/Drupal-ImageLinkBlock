@@ -1,0 +1,28 @@
+def projectName = "image_link"
+def platformVersion = "8.x"
+def projectVersion = "0.1"
+
+task distTar(type: Tar) {
+	from("src")
+	destinationDir file("dist")
+	baseName projectName + "-" + platformVersion
+	version projectVersion
+	compression Compression.GZIP
+	extension "tar.gz"
+}
+
+task distZip(type: Zip) {
+	from("src")
+	destinationDir file("dist")
+	baseName projectName + "-" + platformVersion
+	version projectVersion
+}
+
+task dist(dependsOn: [distTar, distZip]) {
+	description "Create distribution archives"
+	group "Publishing"
+}
+
+task clean(type: Delete) {
+	delete "dist"
+}
