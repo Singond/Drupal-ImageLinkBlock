@@ -1,6 +1,10 @@
 name: Image Link Block
 description: Adds a block containing a single image as a link
 package: Custom
-
+project: image_link
 type: module
 core: 8.x
+version: 8.x-0.1
+
+interface translation project: image_link
+interface translation server pattern: modules/custom/image_link/translations/%project-%version.%language.po

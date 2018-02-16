@@ -1,0 +1,20 @@
+msgid  "Image Link Block"
+msgstr "Blok s obrázkovým odkazem"
+
+msgid  "Adds a block containing a single image as a link"
+msgstr "Přidá typ bloku, který zobrazuje obrázek jako odkaz"
+
+msgid  "Image Link"
+msgstr "Obrázkový odkaz"
+
+msgid  "Image"
+msgstr "Obrázek"
+
+msgid  "The image to be displayed as the link"
+msgstr "Obrázek, který bude obsahem odkazu"
+
+msgid  "Link"
+msgstr "Odkaz"
+
+msgid  "The URL the image will link to"
+msgstr "Cíl odkazu v obrázku"

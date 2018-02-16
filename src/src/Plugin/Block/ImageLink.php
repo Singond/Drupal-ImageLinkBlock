@@ -28,12 +28,12 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			$imageId = $config['image_link_image'][0];
 			$image = File::load($imageId);
 			if ($image === null) {
-				$imageUrl = "File with ID not found: " . $imageId;
+				$imageUrl = "";
 			} else {
 				$imageUrl = file_create_url($image->getFileUri());
 			}
 		} else {
-			$imageUrl = 'No image found';
+			$imageUrl = '';
 		}
 		
 		if (!empty($config['image_link_link'])) {
