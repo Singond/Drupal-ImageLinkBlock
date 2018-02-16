@@ -46,6 +46,7 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			'#image' => $imageUrl,
 			'#link' => $link,
 			'#theme' => 'image_link_block',
+			'#attached' => ['library' => ['image_link/common']],
 		);
 	}
 	

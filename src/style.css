@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.image-link-block {
+	
+}
+.image-link-block .image-link {
+	display: block;
+	border-bottom: none;
+}
+.image-link-block .image-link img{
+	display: block;
+}
