@@ -30,9 +30,7 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			if ($image === null) {
 				$imageUrl = "File with ID not found: " . $imageId;
 			} else {
-// 				$imageUrl = $image->getFilename();
 				$imageUrl = file_create_url($image->getFileUri());
-// 				$imageUrl = $imageId;
 			}
 		} else {
 			$imageUrl = 'No image found';
@@ -66,6 +64,7 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			'#default_value' => isset($config['image_link_image'])
 					? $config['image_link_image'] : null,
 			'#upload_location' => 'public://images/',
+			'#required' => true,
 		);
 		
 		$form['link'] = array(
@@ -74,6 +73,7 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 			'#description' => $this->t('The URL the image will link to'),
 			'#default_value' => isset($config['image_link_link'])
 					? $config['image_link_link'] : '',
+			'#required' => true,
 		);
 		return $form;
 	}
@@ -84,6 +84,16 @@ class ImageLink extends BlockBase implements BlockPluginInterface {
 	 */
 	public function blockSubmit($form, FormStateInterface $form_state) {
 		parent::blockSubmit($form, $form_state);
+		$image = $form_state->getValue('image')[0];
+		$imageFile = File::load($image);
+		if (!empty($imageFile)) {
+			$imageFile->setPermanent();
+			$imageFile->save();
+			$file_usage = \Drupal::service('file.usage');
+			$id = \Drupal::currentUser()->id();
+			$file_usage->add($imageFile, 'image_link', 'image_link', $id);
+		}
+
 		$values = $form_state->getValues();
 		$this->configuration['image_link_image'] = $values['image'];
 		$this->configuration['image_link_link'] = $values['link'];
