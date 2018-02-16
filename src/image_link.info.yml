@@ -1,5 +1,5 @@
-name: Image Link Block
-description: Adds a block containing a single image as a link
+name: 'Image Link Block'
+description: 'Adds a block containing a single image as a link'
 package: Custom
 project: image_link
 type: module
